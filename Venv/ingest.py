@@ -25,3 +25,10 @@ def df_count(df_city):
     df_count = df_city.count()
     logger.info("Method df_count executed - {}".format(df_count))
     return df_count
+
+def mySql_Connection(spark, jdbc_url, table, connection_properties):
+    logger.info("Method mySql_Connection started...")
+    sql_df = spark.read.jdbc(url=jdbc_url, table=table, properties=connection_properties)
+    logger.info("MySql 8.0 connection established and find result below ...")
+    sql_df.show()
+    return sql_df
