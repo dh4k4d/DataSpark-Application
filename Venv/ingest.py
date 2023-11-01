@@ -21,14 +21,20 @@ def display_df(df_show, df_name):
     df_show = df_show.show()
     return df_show
 
-def df_count(df_city):
-    df_count = df_city.count()
-    logger.info("Method df_count executed - {}".format(df_count))
-    return df_count
+def df_count_elements(df_count):
+    try:
+        df_count = df_count.count()
+        logger.info("Method df_count executed - {}".format(df_count))
+        return df_count
+    except Exception as exp:
+        logger.error("An error occured in df_count menthod execution - {}".format(str(exp)))
 
 def mySql_Connection(spark, jdbc_url, table, connection_properties):
-    logger.info("Method mySql_Connection started...")
-    sql_df = spark.read.jdbc(url=jdbc_url, table=table, properties=connection_properties)
-    logger.info("MySql 8.0 connection established and find result below ...")
-    sql_df.show()
-    return sql_df
+    try:
+        logger.info("Method mySql_Connection started...")
+        sql_df = spark.read.jdbc(url=jdbc_url, table=table, properties=connection_properties)
+        logger.info("MySql 8.0 connection established and find result below ...")
+        sql_df.show()
+        return sql_df
+    except Exception as exp:
+        logger.error("An error occured in mySql_Connection method execution - {}".format(str(exp)))
