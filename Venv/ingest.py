@@ -4,11 +4,12 @@ logger = logging.getLogger("Ingest")
 
 def load_files(spark, file_format, file_dir):
     try:
-        logger.info("Files loading started...")
+        logger.info("load_files() method started...")
         if file_format == 'parquet':
             df = spark.read.format(file_format).load(file_dir)
         elif file_format == 'csv':
-            df = spark.read.format(file_format).load(file_dir)
+            df = spark.read.format(file_format).option("header", "true").option("inferSchema", "true").load(file_dir)
+            # need to work here
         logger.info("file type - {} dataframe created - {}".format(file_format,df))
         return df
     except Exception as e:
@@ -17,17 +18,13 @@ def load_files(spark, file_format, file_dir):
     else:
         logger.info("dataframe created successfully which is of {}".format(file_format))
 
-def display_df(df_show, df_name):
-    df_show = df_show.show()
-    return df_show
-
 def df_count_elements(df_count):
     try:
         df_count = df_count.count()
-        logger.info("Method df_count executed - {}".format(df_count))
+        logger.info("df_count_elements() method executed - {}".format(df_count))
         return df_count
     except Exception as exp:
-        logger.error("An error occured in df_count menthod execution - {}".format(str(exp)))
+        logger.error("An error occured in df_count_elements() menthod - {}".format(str(exp)))
 
 def mySql_Connection(spark, jdbc_url, table, connection_properties):
     try:
@@ -38,3 +35,11 @@ def mySql_Connection(spark, jdbc_url, table, connection_properties):
         return sql_df
     except Exception as exp:
         logger.error("An error occured in mySql_Connection method execution - {}".format(str(exp)))
+
+def display_df(df_show, df_name):
+    df_show = df_show.show()
+    return df_show
+
+def printSchema(print_df):
+    print_df = print_df.printSchema()
+    return print_df
