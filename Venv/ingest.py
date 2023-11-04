@@ -9,8 +9,8 @@ def load_files(spark, file_format, file_dir):
             df = spark.read.format(file_format).load(file_dir)
         elif file_format == 'csv':
             df = spark.read.format(file_format).option("header", "true").option("inferSchema", "true").load(file_dir)
-            # need to work here
-        logger.info("file type - {} dataframe created - {}".format(file_format,df))
+
+        logger.info("file type - {} dataframe created and reading also completed - {}".format(file_format,df))
         return df
     except Exception as e:
         logger.error("An error occured at load files == {}".format(str(e)))
@@ -40,6 +40,17 @@ def display_df(df_show, df_name):
     df_show = df_show.show()
     return df_show
 
-def printSchema(print_df):
-    print_df = print_df.printSchema()
-    return print_df
+def printSchema(print_df, dfName):
+    try:
+        logger.info("printSchema() method started - {}".format(dfName))
+
+        sch = print_df.schema.fields
+        for i in sch:
+            logger.info(f"\t{i}")
+        
+    except Exception as exp:
+        logger.error("An error occured in printSchema() method - {}".format(exp))
+
+        raise
+    else:
+        logger.info("printSchema() method execution done.")

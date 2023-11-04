@@ -1,0 +1,25 @@
+2023-11-04 12:52:37,409 - INFO - Create_spark - get_spark_object - get_spark_object method() started...
+2023-11-04 12:52:37,409 - INFO - Create_spark - get_spark_object - master set-up as local
+2023-11-04 12:52:41,963 - WARNING - root - main - Spark object created - <pyspark.sql.session.SparkSession object at 0x7c9833ea4310>
+2023-11-04 12:52:41,964 - INFO - FileFormat - get_files - get_files() method started...
+2023-11-04 12:52:41,964 - WARNING - FileFormat - get_files - I'm from getfiles() count :['us_cities_dimension.parquet'] method - /home/anandngr04/123Dir/Source/oltp/us_cities_dimension.parquet
+2023-11-04 12:52:41,964 - INFO - FileFormat - get_files - Creating dataframe ..
+2023-11-04 12:52:41,964 - INFO - Ingest - load_files - load_files() method started...
+2023-11-04 12:52:47,514 - INFO - Ingest - load_files - file type - parquet dataframe created and reading also completed - DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string]
+2023-11-04 12:52:47,516 - INFO - FileFormat - get_files - dataframe created - /home/anandngr04/123Dir/Source/oltp : DataFrame[city: string, city_ascii: string, state_id: string, state_name: string, county_fips: int, county_name: string, lat: double, lng: double, population: int, density: int, timezone: string, zips: string]
+2023-11-04 12:52:49,489 - INFO - Ingest - df_count_elements - df_count_elements() method executed - 28338
+2023-11-04 12:52:49,489 - INFO - Data_processing - data_clean - data_clean() method started ...
+2023-11-04 12:52:49,489 - WARNING - Data_processing - data_clean - Column city_ascii droping..
+2023-11-04 12:52:49,535 - WARNING - Data_processing - data_clean - Making upper case columns - City, State_Name, CountryName...
+2023-11-04 12:52:49,608 - WARNING - Data_processing - data_clean - Deleting NA values rows - [cleanDF]
+2023-11-04 12:52:49,608 - INFO - Ingest - printSchema - printSchema() method started - cleanDF
+2023-11-04 12:52:49,610 - INFO - Ingest - printSchema - 	StructField('City', StringType(), True)
+2023-11-04 12:52:49,610 - INFO - Ingest - printSchema - 	StructField('State_Name', StringType(), True)
+2023-11-04 12:52:49,610 - INFO - Ingest - printSchema - 	StructField('State_Id', StringType(), True)
+2023-11-04 12:52:49,611 - INFO - Ingest - printSchema - 	StructField('CountryName', StringType(), True)
+2023-11-04 12:52:49,611 - INFO - Ingest - printSchema - 	StructField('Population', IntegerType(), True)
+2023-11-04 12:52:49,611 - INFO - Ingest - printSchema - 	StructField('TimeZone', StringType(), True)
+2023-11-04 12:52:49,611 - INFO - Ingest - printSchema - 	StructField('ZipCodes', StringType(), True)
+2023-11-04 12:52:49,611 - INFO - Ingest - printSchema - printSchema() method execution done.
+2023-11-04 12:52:49,878 - INFO - Ingest - df_count_elements - df_count_elements() method executed - 28338
+2023-11-04 12:52:50,940 - INFO - root - <module> - Data Processing App Closed.

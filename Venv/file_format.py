@@ -5,11 +5,13 @@ from data_processing import data_clean
 
 logger = logging.getLogger("FileFormat")
 
-def get_files(spark):
+def get_files(spark, source_dir):
     try:
         logger.info("get_files() method started...")
-        for file in os.listdir(gav.src_olap):
-            file_dir = gav.src_olap + '/'+file
+        for file in os.listdir(source_dir):
+            file_dir = source_dir + '/'+file
+
+            logger.warning("I'm from getfiles() count :{} method - {}".format(os.listdir(source_dir),file_dir))
 
             if file.endswith('.parquet'):
                 file_format = 'parquet'
@@ -17,23 +19,10 @@ def get_files(spark):
             elif file.endswith('.csv'):
                 file_format = 'csv'
 
-            df_medicare = load_files(spark=spark, file_format=file_format, file_dir=file_dir)
-            logger.info("dataframe created - {}".format(df_medicare))
-
-        
-        for file in os.listdir(gav.src_oltp):
-            file_dir = gav.src_oltp + '/'+file
-
-            if file.endswith('.parquet'):
-                file_format = 'parquet'
-
-            elif file.endswith('.csv'):
-                file_format = 'csv'
-
-            df_city = load_files(spark=spark, file_format=file_format, file_dir=file_dir)
-            logger.info("dataframe created - {}".format(df_city))
-
-            return(df_medicare, df_city)
+            logger.info("Creating dataframe ..")
+            dataframe = load_files(spark=spark, file_format=file_format, file_dir=file_dir)
+            logger.info("dataframe created - {} : {}".format(source_dir, dataframe))
+            return(dataframe)
 
     except Exception as exp:
         logger.error("An error occured in get_files() method - {}".format(str(exp)))

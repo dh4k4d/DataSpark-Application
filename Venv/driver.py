@@ -15,19 +15,22 @@ def main():
     try:
         spark = get_spark_object(gav.envn, gav.appName)
         logger.warning("Spark object created - {}".format(spark))
-        get_current_date(spark)
+        #get_current_date(spark)
         #load files
-        df_medicare, df_city = get_files(spark)
+        olapDF = get_files(spark, gav.src_oltp)
+        fileType = 'parquet'
+
         # df_count
-        df_count_elements(df_medicare)
-        df_count_elements(df_city)
+        df_count_elements(olapDF)
 
         #data_processing
-        df_medicare, df_city=data_clean(df_medicare, df_city)
+        cleanDF = data_clean(olapDF, fileType)
+
+        #df_count
+        df_count_elements(cleanDF)
 
         #display
-        # display_df(df_medicare, 'df_medicare')
-        display_df(df_city, 'df_city')
+        display_df(cleanDF, 'dfResult')
         
         # SalesResultDf = mySql_Connection(spark, gav.jdbc_url, gav.table, gav.connection_properties)
 
@@ -36,5 +39,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-    logger.info("Application done.")
+    logger.info("Data Processing App Closed.")
     sys.exit(1)
