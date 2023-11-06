@@ -35,7 +35,7 @@ def main():
         # SalesResultDf = mySql_Connection(spark, gav.jdbc_url, gav.table, gav.connection_properties)
 
     except Exception as e:
-        logger.error("Error occured in main module - {}".format(str(e)))
+        logger.error("An error occured in main() method === {}".format(str(e)))
 
 if __name__ == "__main__":
     main()

@@ -11,18 +11,16 @@ def get_files(spark, source_dir):
         for file in os.listdir(source_dir):
             file_dir = source_dir + '/'+file
 
-            logger.warning("I'm from getfiles() count :{} method - {}".format(os.listdir(source_dir),file_dir))
-
             if file.endswith('.parquet'):
                 file_format = 'parquet'
 
             elif file.endswith('.csv'):
                 file_format = 'csv'
 
-            logger.info("Creating dataframe ..")
+            logger.info("Creating dataframe and calling load_files() method...")
             dataframe = load_files(spark=spark, file_format=file_format, file_dir=file_dir)
-            logger.info("dataframe created - {} : {}".format(source_dir, dataframe))
+            logger.info("Dataframe created - {}".format(dataframe))
             return(dataframe)
 
     except Exception as exp:
-        logger.error("An error occured in get_files() method - {}".format(str(exp)))
+        logger.error("An error occured in get_files() method === {}".format(str(exp)))

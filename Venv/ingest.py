@@ -13,18 +13,18 @@ def load_files(spark, file_format, file_dir):
         logger.info("file type - {} dataframe created and reading also completed - {}".format(file_format,df))
         return df
     except Exception as e:
-        logger.error("An error occured at load files == {}".format(str(e)))
+        logger.error("An error occured in load_files() method == {}".format(str(e)))
         raise
     else:
         logger.info("dataframe created successfully which is of {}".format(file_format))
 
-def df_count_elements(df_count):
+def df_count_elements(df):
     try:
-        df_count = df_count.count()
+        df_count = df.count()
         logger.info("df_count_elements() method executed - {}".format(df_count))
         return df_count
     except Exception as exp:
-        logger.error("An error occured in df_count_elements() menthod - {}".format(str(exp)))
+        logger.error("An error occured in df_count_elements() method === {}".format(str(exp)))
 
 def mySql_Connection(spark, jdbc_url, table, connection_properties):
     try:
@@ -34,7 +34,7 @@ def mySql_Connection(spark, jdbc_url, table, connection_properties):
         sql_df.show()
         return sql_df
     except Exception as exp:
-        logger.error("An error occured in mySql_Connection method execution - {}".format(str(exp)))
+        logger.error("An error occured in mySql_Connection() method === {}".format(str(exp)))
 
 def display_df(df_show, df_name):
     df_show = df_show.show()
@@ -49,7 +49,7 @@ def printSchema(print_df, dfName):
             logger.info(f"\t{i}")
         
     except Exception as exp:
-        logger.error("An error occured in printSchema() method - {}".format(exp))
+        logger.error("An error occured in printSchema() method === {}".format(exp))
 
         raise
     else:

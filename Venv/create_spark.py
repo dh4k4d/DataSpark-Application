@@ -15,5 +15,5 @@ def get_spark_object(envn, appName):
         return spark
 
     except Exception as exp:
-        return exp
+        logger.error("An error occured in get_spark_object() method === {}".format(exp))
     
